@@ -6,12 +6,13 @@ module ConsideredHarmful
   module SpaghettiCode
     def __label__(label)
       @@__labels__ ||= {}
-      callcc { |k| @@__labels__[label.to_sym] = k }
+      callcc { |k| @@__labels__[label] = k }
     end
 
     def __goto__(label)
-      if @@__labels__.has_key?(label.to_sym)
-        @@__labels__[label.to_sym].call()
+      @@__labels__ ||= {}
+      if @@__labels__.has_key?(label)
+        @@__labels__[label].call()
       end
     end
   end
